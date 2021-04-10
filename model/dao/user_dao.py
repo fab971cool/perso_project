@@ -33,6 +33,7 @@ class UserDAO(DAO):
 
         try:
             user = User(firstname=firstname, lastname=lastname, type=type)
+
             self._database_session.add(user)
             self._database_session.flush()
         except IntegrityError:
@@ -59,3 +60,11 @@ class UserDAO(DAO):
         except SQLAlchemyError as e:
             raise Exception(str(e))
 
+    def append_history(self, user: User, new_sceance_id: str):
+        user.history = user.history + [new_sceance_id]
+        try:
+            self._database_session.merge(user)
+            self._database_session.flush()
+        except IntegrityError:
+            raise Exception('Error data may be malformed')
+        return user

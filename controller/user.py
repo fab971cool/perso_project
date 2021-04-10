@@ -56,6 +56,13 @@ class UserController:
             user = UserDAO(session).update(user,data)
             return user
 
+    def update_history(self, user_id, new_seance_id):
+        with self._database_engine.new_session() as session:
+            user = UserDAO(session).get_User(user_id)
+            user = UserDAO(session).append_history(user, new_seance_id)
+            return user
+
+
     def delete_user(self, user_id):
         with self._database_engine.new_session() as session:
             user = UserDAO(session).get_User(user_id)
