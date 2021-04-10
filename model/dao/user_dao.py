@@ -10,13 +10,14 @@ class UserDAO(DAO):
     def __init__(self, database_session):
         super().__init__(database_session)
 
-    def get(self, firstname: str, lastname: str):
+    def get_User(self, firstname: str, lastname: str):
         try:
-            return self._database_session.query(User).filter_by(firstname=firstname, lastname=lastname)
+            return self._database_session.query(User).filter_by(firstname=firstname, lastname=lastname) \
+                .order_by(User.firstname).one()
         except NoResultFound:
             raise Exception("Ressource not found.")
 
-    def get_User(self, id: int):
+    def get(self, id: int):
         try:
             return self._database_session.query(User).filter_by(id=id).order_by(User.firstname).one()
         except NoResultFound:
@@ -29,10 +30,10 @@ class UserDAO(DAO):
         except NoResultFound:
             raise Exception("Ressource not found.")
 
-    def create(self, firstname: str, lastname: str, type: str):
+    def create(self, data: dict):
 
         try:
-            user = User(firstname=firstname, lastname=lastname, type=type)
+            user = User(firstname=data['firstname'], lastname=data['lastname'], type=data['type'])
 
             self._database_session.add(user)
             self._database_session.flush()
