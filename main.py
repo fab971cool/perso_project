@@ -1,13 +1,16 @@
-from controller.functions import login
+import sys
+
 from model.database import DatabaseEngine
+from PySide6.QtWidgets import QApplication
+from vue.login import LoginWindow
 
 
 if __name__ == "__main__":
     databaseEngine = DatabaseEngine(url='sqlite:///pathesiea.db')
     databaseEngine.create_database()
-    user, controller = login("pierre", "fouquart",databaseEngine)
-    print(controller.list_users())
-    controller.create_user("testa", "test", "admin")
-    print(controller.list_users())
+    app = QApplication(sys.argv)
+    print("test")
+    login = LoginWindow()
 
+    app.exec_()
 
