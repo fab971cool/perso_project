@@ -9,8 +9,6 @@ if __name__ == "__main__":
     databaseEngine = DatabaseEngine(url='sqlite:///pathesiea.db')
     databaseEngine.create_database()
     app = QApplication(sys.argv)
-    print("test")
-    login = LoginWindow()
-
+    login = LoginWindow(databaseEngine)
     app.exec_()
 

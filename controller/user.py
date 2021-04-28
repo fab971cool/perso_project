@@ -7,15 +7,15 @@ def _check_data(data):
     err = False
     if 'firstname' in data:
         if re.fullmatch("^[a-zA-]{2,50}$", data["firstname"]) is None:
-            print("The user firstname must contain between 2 and 50 letters ")
+
             err = True
     if 'lastname' in data:
         if re.fullmatch("^[a-zA-]{2,50}$", data["lastname"]) is None:
-            print("The user lastname must contain between 2 and 50 letters ")
+
             err = True
     if 'type' in data:
         if re.fullmatch("^(user|admin)$", data['type']) is None:
-            print("The type must be 'user' or 'admin'")
+
             err = True
 
     if err is True:
@@ -49,6 +49,17 @@ class UserController:
 
     def get_history(self, user):
         return user.history
+
+    def create_user(self, firstname: str, lastname: str ):
+
+        self.check_data({'firstname': firstname, 'lastname': lastname, 'type': 'user'})
+
+        try:
+            with self._database_engine.new_session() as session:
+                user = UserDAO(session).create({'firstname': firstname, 'lastname': lastname, 'type': 'user'})
+                return user
+        except Exception as e:
+            raise e
 
     check_data = staticmethod(_check_data)
 
