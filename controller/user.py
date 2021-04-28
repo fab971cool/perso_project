@@ -52,7 +52,7 @@ class UserController:
 
         self.check_data(data)
         with self._database_engine.new_session() as session:
-            user = UserDAO(session).get_User(user_id)
+            user = UserDAO(session).get(id)
             user = UserDAO(session).update(user, data)
             return user
 
@@ -64,7 +64,7 @@ class UserController:
 
     def delete_user(self, user_id):
         with self._database_engine.new_session() as session:
-            user = UserDAO(session).get_User(user_id)
+            user = UserDAO(session).get(user_id)
             UserDAO(session).delete(user)
 
     def search_user(self, firstname: str, lastname: str):
