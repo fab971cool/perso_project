@@ -1,5 +1,6 @@
-from model.dao.user_dao import UserDAO
 import re
+
+from model.dao.user_dao import UserDAO
 
 
 def _check_data(data):

@@ -10,7 +10,7 @@ def login(prenom, nom, database_engine):
         if user.type == "admin":
             return user, adminController(database_engine)
         else:
-            return  user, UserController(database_engine)
+            return user, UserController(database_engine)
     except:
         controller = UserController(database_engine)
         user = adminController(database_engine).create_user(prenom, nom, "user")
