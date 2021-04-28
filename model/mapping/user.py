@@ -1,6 +1,6 @@
 import uuid
 
-from sqlalchemy import Column, String, UniqueConstraint, PickleType
+from sqlalchemy import Column, String, UniqueConstraint, PickleType, Integer
 from sqlalchemy.ext.mutable import MutableList
 
 from model.mapping import Base
@@ -10,7 +10,7 @@ class User(Base):
     __tablename__ = 'users'
     __table_args__ = (UniqueConstraint('firstname', 'lastname'),)
 
-    id = Column(String(36), default=str(uuid.uuid4()), primary_key=True)
+    id = Column(Integer(), primary_key=True)
 
     firstname = Column(String(50), nullable=False)
     lastname = Column(String(50), nullable=False)

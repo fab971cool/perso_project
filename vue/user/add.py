@@ -16,17 +16,15 @@ class AddUserQt(QWidget):
 
     def setup(self):
 
-        # Create an outer layout
+        # Layout principal = Layout
         outerLayout = QVBoxLayout()
-        # Create a form layout for the label and line edit
         Layout = QFormLayout()
-        # Add a label and a line edit to the form layout
 
         Layout.addRow("First Name", self.first_name)
         Layout.addRow("Last Name", self.last_name)
 
-        self.type.addItem("admin")
         self.type.addItem("user")
+        self.type.addItem("admin")
         Layout.addRow("Account type", self.type)
 
         ValidationLayout = QVBoxLayout()
@@ -34,11 +32,11 @@ class AddUserQt(QWidget):
         btn_add = QPushButton('Add user', self)
         btn_add.clicked.connect(self.addUser)
         btn_add.resize(btn_add.sizeHint())
-        btn_add.move(0, 0)
+        btn_add.move(90, 1000)
 
         ValidationLayout.addWidget(btn_add)
 
-        self.setGeometry(100, 100, 200, 150)
+        self.setGeometry(100, 100, 300, 150)
         self.setWindowTitle('Admin add User')
 
         outerLayout.addLayout(Layout)

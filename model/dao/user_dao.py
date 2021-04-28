@@ -61,8 +61,8 @@ class UserDAO(DAO):
         except SQLAlchemyError as e:
             raise Exception(str(e))
 
-    def append_history(self, user: User, new_sceance_id: str):
-        user.history = user.history + [new_sceance_id]
+    def append_history(self, user: User, new_seance_id: str):
+        user.history = user.history + [new_seance_id]
         try:
             self._database_session.merge(user)
             self._database_session.flush()
