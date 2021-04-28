@@ -12,7 +12,7 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     print("test")
     admin = adminController(databaseEngine)
-    test = AddUserQt()
+    test = AddUserQt(admin)
 
     login = LoginWindow(databaseEngine)
     app.exec_()

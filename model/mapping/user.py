@@ -17,6 +17,7 @@ class User(Base):
     history = Column(MutableList.as_mutable(PickleType), default=[])
     type = Column(String(10), nullable=False)
 
+
     def __repr__(self):
         return "<Member(%s %s %s %s)>" % (self.firstname, self.lastname.upper(), self.type, self.id)
 

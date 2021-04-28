@@ -1,39 +1,64 @@
-from vue.window import BasicWindow
-from PySide6.QtWidgets import QApplication, QVBoxLayout, QPushButton
-from vue.user.show import ListUserQt
-from controller.member_controller import MemberController
+from PySide6.QtWidgets import QApplication, QVBoxLayout, QPushButton, QWidget, QLineEdit, QFormLayout, QComboBox
+from controller.admin import adminController
 
 
-class MenuWindow(BasicWindow):
+class AddUserQt(QWidget):
 
-    def __init__(self, member_controller: MemberController):
-        self._member_controller = member_controller
+    def __init__(self, admin_controller: adminController):
+        self._admin_controller = admin_controller
         super().__init__()
-        self.listUserWindow = None
+
+        self.first_name = QLineEdit()
+        self.last_name = QLineEdit()
+        self.type = QComboBox() # pas possible mais pour les tests
 
         self.setup()
 
     def setup(self):
-        btn_list = QPushButton('List user', self)
-        btn_list.resize(btn_list.sizeHint())
-        btn_list.move(0, 0)
-        btn_list.clicked.connect(self.list_user)
 
-        btn_quit = QPushButton('Quit', self)
-        btn_quit.clicked.connect(QApplication.instance().quit)
-        btn_quit.resize(btn_quit.sizeHint())
-        btn_quit.move(90, 100)
+        # Create an outer layout
+        outerLayout = QVBoxLayout()
+        # Create a form layout for the label and line edit
+        Layout = QFormLayout()
+        # Add a label and a line edit to the form layout
 
-        layout = QVBoxLayout()
-        layout.addWidget(btn_list)
-        layout.addWidget(btn_quit)
+        Layout.addRow("First Name", self.first_name)
+        Layout.addRow("Last Name", self.last_name)
+
+        self.type.addItem("admin")
+        self.type.addItem("user")
+        Layout.addRow("Account type", self.type)
+
+        ValidationLayout = QVBoxLayout()
+
+        btn_add = QPushButton('Add user', self)
+        btn_add.clicked.connect(self.addUser)
+        btn_add.resize(btn_add.sizeHint())
+        btn_add.move(0, 0)
+
+        ValidationLayout.addWidget(btn_add)
 
         self.setGeometry(100, 100, 200, 150)
-        self.setWindowTitle('Shop application Menu')
-        self.setLayout(layout)
+        self.setWindowTitle('Admin add User')
+
+        outerLayout.addLayout(Layout)
+        outerLayout.addLayout(ValidationLayout)
+
+        self.setLayout(outerLayout)
         self.show()
 
-    def list_user(self):
-        if self.listUserWindow is None:
-            self.listUserWindow = ListUserQt(self._member_controller)
-        self.listUserWindow.show()
+
+    def addUser(self):
+        # Show subscription formular
+        data = {'firstname': self.first_name.text(),
+                'lastname': self.last_name.text(),
+                'type': self.type.currentText()}
+        print(data)
+        self._admin_controller.create_user(self.first_name.text(), self.last_name.text(), self.type.currentText())
+
+        members = self._admin_controller.list_users()
+
+        print("Members: ")
+        for member in members:
+            print(member)
+
