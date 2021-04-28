@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import  QVBoxLayout, QPushButton, QWidget, QLineEdit, QFormLayout, QComboBox
+from PySide6.QtWidgets import  QVBoxLayout, QPushButton, QWidget, QLineEdit, QListWidget
 from controller.user import UserController
 
 class showHistoryQT(QWidget):
@@ -15,5 +15,11 @@ class showHistoryQT(QWidget):
 
     def setup(self):
         outerLayout = QVBoxLayout()
-
+        l = QListWidget()
         self.setLayout(outerLayout)
+        i = 0
+        for film in self.user.history:
+            l.insertItem(i, film)
+            i += 1
+        outerLayout.addWidget(l)
+

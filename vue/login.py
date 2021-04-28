@@ -74,11 +74,9 @@ class LoginWindow(QWidget):
             msgBox.exec_()
 
 
-
-    def refresh(self):
-        pass
-
     def signIn(self):
         self.close()
         controller = UserController(self.db)
+        self.Vue = CreateUserQt(controller)
+        self.Vue.show()
 
