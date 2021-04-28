@@ -27,49 +27,28 @@ class UserController:
     def __init__(self, database_engine):
         self._database_engine = database_engine
 
-    def list_users(self):
-        with self._database_engine.new_session() as session:
-            users = UserDAO(session).get_all()
-        return users
-
-    def get_user(self, user_id):
-        with self._database_engine.new_session() as session:
-            user = UserDAO(session).get_User(user_id)
-        return user
-
-    def create_user(self, firstname: str, lastname: str, type: str):
-
-        self.check_data({'firstname': firstname, 'lastname': lastname, 'type': type})
-
-        try:
-            with self._database_engine.new_session() as session:
-                user = UserDAO(session).create({'firstname': firstname, 'lastname': lastname, 'type': type})
-                return user
-        except Exception as e:
-            raise e
-
-    def update_user(self, user_id, data):
+    # bien
+    def update_user(self, user, data):
 
         self.check_data(data)
         with self._database_engine.new_session() as session:
-            user = UserDAO(session).get(id)
             user = UserDAO(session).update(user, data)
             return user
 
-    def update_history(self, user_id, new_seance_id):
+    # bien
+    def update_history(self, user, new_seance_id):
         with self._database_engine.new_session() as session:
-            user = UserDAO(session).get_User(user_id)
             user = UserDAO(session).append_history(user, new_seance_id)
             return user
 
-    def delete_user(self, user_id):
+    # bien
+    def delete_user(self, user):
         with self._database_engine.new_session() as session:
-            user = UserDAO(session).get(user_id)
             UserDAO(session).delete(user)
 
-    def search_user(self, firstname: str, lastname: str):
-        with self._database_engine.new_session() as session:
-            user = UserDAO(session).get_User(firstname, lastname)
-            return user
+
+    def get_history(self, user):
+        return user.history
 
     check_data = staticmethod(_check_data)
+
