@@ -9,6 +9,7 @@ class UpdateUserQT(QWidget):
 
         self.first_name = QLineEdit(user_vue.user.firstname)
         self.last_name = QLineEdit(user_vue.user.lastname)
+        self.setWindowTitle("Update your account")
         self.Vue = None
         self.setup()
 
@@ -29,6 +30,8 @@ class UpdateUserQT(QWidget):
         outerLayout.addLayout(Layout)
         outerLayout.addLayout(ValidationLayout)
 
+        self.setGeometry(100, 100, 350, 200)
+        self.setFixedSize(self.size())
         self.setLayout(outerLayout)
 
     def updateUser(self):

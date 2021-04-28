@@ -12,6 +12,7 @@ class CreateUserQt(QWidget):
         self.last_name = QLineEdit()
         self.setup()
         self.Vue = None
+        self.setWindowTitle("Create your account")
 
     def setup(self):
 
@@ -33,9 +34,9 @@ class CreateUserQt(QWidget):
 
         ValidationLayout.addWidget(btn_add)
 
-        self.setGeometry(100, 100, 200, 150)
+        self.setGeometry(100, 100, 350, 200)
         self.setWindowTitle('Create User')
-
+        self.setFixedSize(self.size())
         outerLayout.addLayout(Layout)
         outerLayout.addLayout(ValidationLayout)
 

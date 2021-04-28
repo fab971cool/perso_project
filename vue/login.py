@@ -71,6 +71,7 @@ class LoginWindow(QWidget):
                 msgBox.setText("The user firstname and lastname must contain between 2 and 50 letters ")
             else:
                 msgBox.setText(str(e))
+            msgBox.setWindowTitle("Warning")
             msgBox.exec_()
 
 

@@ -10,6 +10,7 @@ class showHistoryQT(QWidget):
         self.user = user
         self.first_name = QLineEdit(user.firstname)
         self.last_name = QLineEdit(user.lastname)
+        self.setWindowTitle("history")
 
         self.setup()
 
@@ -18,6 +19,7 @@ class showHistoryQT(QWidget):
         l = QListWidget()
         self.setLayout(outerLayout)
         i = 0
+
         for film in self.user.history:
             l.insertItem(i, film)
             i += 1
