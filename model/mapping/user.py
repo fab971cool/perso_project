@@ -1,8 +1,9 @@
-from model.mapping import Base
 import uuid
-from sqlalchemy.ext.mutable import MutableList
 
 from sqlalchemy import Column, String, UniqueConstraint, PickleType
+from sqlalchemy.ext.mutable import MutableList
+
+from model.mapping import Base
 
 
 class User(Base):
