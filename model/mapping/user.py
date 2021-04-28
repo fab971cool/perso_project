@@ -18,3 +18,4 @@ class User(Base):
 
     def __repr__(self):
         return "<Member(%s %s %s %s)>" % (self.firstname, self.lastname.upper(), self.type, self.id)
+
