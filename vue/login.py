@@ -1,6 +1,8 @@
 from PySide6.QtWidgets import  QVBoxLayout, QPushButton, QWidget , QLineEdit, QFormLayout, QMessageBox, QLabel
 from controller.functions import login
-
+from vue.user.user_vue import userVue
+from vue.user.add import CreateUserQt
+from controller.user import UserController
 
 class LoginWindow(QWidget):
 
@@ -21,19 +23,17 @@ class LoginWindow(QWidget):
         layout.addRow("firstname", self.firstname)
         layout.addRow("lastname", self.lastname)
 
-
         ValidationLayout = QVBoxLayout()
         validation = QPushButton("Validate", self)
         validation.clicked.connect(self.login)
         validation.resize(validation.sizeHint())
         validation.move(90, 80)
 
-
         label = QLabel("New client, sign-in",self)
         label.move(90,70)
 
         signIn = QPushButton("Sign-in", self)
-        #validation.clicked.connect()//todo ajouter page création de compte user
+        signIn.clicked.connect(self.signIn)
         signIn.resize(signIn.sizeHint())
         signIn.move(90, 100)
 
@@ -53,9 +53,16 @@ class LoginWindow(QWidget):
                 raise Exception('Veuillez entrer un nom et un prenom.')
 
             user, controller = login(self.firstname.text(), self.lastname.text(), self.db)
+
             if user == None:
                 raise Exception("This user doesn't exist, verify your informations or create an account")
+            elif user.type == "user":
+                self.close()
+                self.Vue = userVue(user, controller)
+                self.Vue.show()
 
+            elif user.type == "admin":
+                self.close()
 
         except Exception as e:
 
@@ -70,4 +77,8 @@ class LoginWindow(QWidget):
 
     def refresh(self):
         pass
+
+    def signIn(self):
+        self.close()
+        controller = UserController(self.db)
 
