@@ -7,11 +7,11 @@ def _check_data(data):
 
     err = False
     if 'firstname' in data:
-        if re.fullmatch("^[a-zA-]{2,50}$", data["firstname"]) is None:
+        if re.fullmatch("^[a-zA-Z]{2,50}$", data["firstname"]) is None:
 
             err = True
     if 'lastname' in data:
-        if re.fullmatch("^[a-zA-]{2,50}$", data["lastname"]) is None:
+        if re.fullmatch("^[a-zA-Z]{2,50}$", data["lastname"]) is None:
 
             err = True
     if 'type' in data:

@@ -15,7 +15,7 @@ class adminController(UserController):
     # pour admin
     def get_user(self, user_id):
         with self._database_engine.new_session() as session:
-            user = UserDAO(session).get_User(user_id)
+            user = UserDAO(session).get(user_id)
         return user
 
     # pour admin
