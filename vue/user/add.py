@@ -1,5 +1,6 @@
 from PySide6.QtWidgets import QApplication, QVBoxLayout, QPushButton, QWidget, QLineEdit, QFormLayout, QComboBox
 from controller.admin import adminController
+from PySide6.QtWidgets import QMessageBox
 
 
 class AddUserQt(QWidget):
@@ -55,6 +56,7 @@ class AddUserQt(QWidget):
         self._admin_controller.create_user(self.first_name.text(), self.last_name.text(), self.type.currentText())
 
         members = self._admin_controller.list_users()
+
 
         print("Members: ")
         for member in members:
