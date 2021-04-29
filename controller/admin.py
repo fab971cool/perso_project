@@ -24,7 +24,7 @@ class adminController(UserController):
             user = UserDAO(session).get_User(firstname, lastname)
             return user
 
-    def create_user(self, firstname: str, lastname: str, type: str):
+    def create_user_admin(self, firstname: str, lastname: str, type: str):
 
         self.check_data({'firstname': firstname, 'lastname': lastname, 'type': type})
 

@@ -1,6 +1,7 @@
 from PySide6.QtWidgets import QVBoxLayout, QPushButton, QWidget, QLineEdit, QFormLayout, QMessageBox, QLabel
 from controller.functions import login
 from vue.user.user_vue import userVue
+from vue.admin.admin_vue import adminVue
 from vue.user.add import CreateUserQt
 from controller.user import UserController
 
@@ -65,6 +66,8 @@ class LoginWindow(QWidget):
 
             elif user.type == "admin":
                 self.close()
+                self.Vue = adminVue(user, controller)
+                self.Vue.show()
 
         except Exception as e:
 

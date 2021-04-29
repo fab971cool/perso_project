@@ -11,7 +11,6 @@ class User(Base):
     __table_args__ = (UniqueConstraint('firstname', 'lastname'),)
 
     id = Column(Integer, primary_key=True)
-
     firstname = Column(String(50), nullable=False)
     lastname = Column(String(50), nullable=False)
     history = Column(MutableList.as_mutable(PickleType), default=[])

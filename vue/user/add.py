@@ -46,7 +46,7 @@ class CreateUserQt(QWidget):
     def addUser(self):
         # Show subscription formular
         try:
-            user = self._user_controller.create_user(self.first_name.text(),self.last_name.text())
+            user = self._user_controller.create_user(self.first_name.text(), self.last_name.text())
             self.close()
             self.Vue = userVue(user, self._user_controller)
             self.Vue.show()

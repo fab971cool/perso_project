@@ -54,11 +54,11 @@ class AddUserQt(QWidget):
                 'lastname': self.last_name.text(),
                 'type': self.type.currentText()}
         print(data)
-        self._admin_controller.create_user(self.first_name.text(), self.last_name.text(), self.type.currentText())
+        self._admin_controller.create_user_admin(self.first_name.text(), self.last_name.text(), self.type.currentText())
 
         members = self._admin_controller.list_users()
 
         print("Members: ")
         for member in members:
             print(member)
-
+        self.close()
