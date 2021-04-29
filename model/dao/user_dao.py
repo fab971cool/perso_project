@@ -52,7 +52,7 @@ class UserDAO(DAO):
             self._database_session.merge(user)
             self._database_session.flush()
         except IntegrityError:
-            raise Exception('Error data may be malformed')
+            raise Exception('User already exists')
         return user
 
     def delete(self, user):

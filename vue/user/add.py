@@ -1,6 +1,7 @@
-from PySide6.QtWidgets import  QVBoxLayout, QPushButton, QWidget, QLineEdit, QFormLayout, QComboBox
+from PySide6.QtWidgets import QVBoxLayout, QPushButton, QWidget, QLineEdit, QFormLayout, QMessageBox
 from controller.user import UserController
 from vue.user.user_vue import userVue
+
 
 class CreateUserQt(QWidget):
 
@@ -44,10 +45,19 @@ class CreateUserQt(QWidget):
 
     def addUser(self):
         # Show subscription formular
-        user = self._user_controller.create_user(self.first_name.text(),self.last_name.text())
-        self.close()
-        self.Vue = userVue(user, self._user_controller)
-        self.Vue.show()
+        try:
+            user = self._user_controller.create_user(self.first_name.text(),self.last_name.text())
+            self.close()
+            self.Vue = userVue(user, self._user_controller)
+            self.Vue.show()
+        except Exception as e:
+            msgBox = QMessageBox()
+            if str(e) == "Invalid data":
+                msgBox.setText("The user firstname and lastname must contain between 2 and 50 letters ")
+            else:
+                msgBox.setText(str(e))
+            msgBox.setWindowTitle("Warning")
+            msgBox.exec_()
 
 
 
