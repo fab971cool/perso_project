@@ -1,8 +1,9 @@
-from PySide6.QtWidgets import  QVBoxLayout, QPushButton, QWidget , QLineEdit, QFormLayout, QMessageBox, QLabel
+from PySide6.QtWidgets import QVBoxLayout, QPushButton, QWidget, QLineEdit, QFormLayout, QMessageBox, QLabel
 from controller.functions import login
 from vue.user.user_vue import userVue
 from vue.user.add import CreateUserQt
 from controller.user import UserController
+
 
 class LoginWindow(QWidget):
 
@@ -12,6 +13,7 @@ class LoginWindow(QWidget):
         self.lastname = QLineEdit()
         self.firstname = QLineEdit()
         self.setWindowTitle("Login")
+        self.Vue =None
         self.setup()
 
     def setup(self):
@@ -54,7 +56,7 @@ class LoginWindow(QWidget):
 
             user, controller = login(self.firstname.text(), self.lastname.text(), self.db)
 
-            if user == None:
+            if user is None:
                 raise Exception("This user doesn't exist, verify your informations or create an account")
             elif user.type == "user":
                 self.close()
@@ -73,7 +75,6 @@ class LoginWindow(QWidget):
                 msgBox.setText(str(e))
             msgBox.setWindowTitle("Warning")
             msgBox.exec_()
-
 
     def signIn(self):
         self.close()

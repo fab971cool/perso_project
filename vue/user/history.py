@@ -1,5 +1,6 @@
-from PySide6.QtWidgets import  QVBoxLayout, QPushButton, QWidget, QLineEdit, QListWidget
+from PySide6.QtWidgets import QVBoxLayout, QWidget, QLineEdit, QListWidget
 from controller.user import UserController
+
 
 class showHistoryQT(QWidget):
 
