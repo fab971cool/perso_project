@@ -1,64 +1,63 @@
-from PySide6.QtWidgets import QVBoxLayout, QFormLayout, QLineEdit, QPushButton
+from PySide6.QtWidgets import QVBoxLayout, QFormLayout, QLineEdit, QPushButton, QWidget
 #from vue.window import BasicWindow
 from controller.admin import adminController
+from controller.user import UserController
 
 
-class EditUserQt(BasicWindow):
-    def __init__(self, member_controller: MemberController, id: str, show_vue: BasicWindow = None):
-        self._member_controller = member_controller
+class EditUserQt(QWidget):
+    def __init__(self, admin_controller: adminController, user :UserController):
+        self._admin_controller = admin_controller
         super().__init__()
-        self.user_id = id
+
+        # definit les types de 'boites' qui seront utilisées
         self.first_name = QLineEdit()
         self.last_name = QLineEdit()
-        self.email = QLineEdit()
 
-        self.show_vue = show_vue
+        self.user = user
+        self.get_user_name(self.user)
         self.setup()
-        self.fillform()
 
     def setup(self):
-        # Create an outer layout
         outerLayout = QVBoxLayout()
-        # Create a form layout for the label and line edit
         Layout = QFormLayout()
-        # Add a label and a line edit to the form layout
 
         Layout.addRow("First Name", self.first_name)
-
         Layout.addRow("Last Name", self.last_name)
 
-        Layout.addRow("Email", self.email)
-        # Create a layout for the checkboxes
-        ValidationLayout = QVBoxLayout()
+        # Layout pour les boutons de validation
+        ButtonLayout = QVBoxLayout()
 
-        btn_edit = QPushButton('Edit User', self)
-        btn_edit.clicked.connect(self.editUser)
+        btn_edit = QPushButton('Delete User', self)
+        btn_edit.clicked.connect(self.EditUser)
         btn_edit.resize(btn_edit.sizeHint())
         btn_edit.move(90, 100)
-        ValidationLayout.addWidget(btn_edit)
 
-        # Add some checkboxes to the layout
-        btn_cancel = QPushButton('Quit', self)
-        btn_cancel.clicked.connect(self.quitEvent)
+        ButtonLayout.addWidget(btn_edit)
+
+        btn_cancel = QPushButton('Cancel', self)
+        # btn_cancel.clicked.connect(self.EditUser)
         btn_cancel.resize(btn_cancel.sizeHint())
         btn_cancel.move(90, 100)
-        ValidationLayout.addWidget(btn_cancel)
-        # Nest the inner layouts into the outer layout
+
+        ButtonLayout.addWidget(btn_cancel)
+
+        self.setGeometry(100, 100, 300, 150)
+        self.setWindowTitle('Admin Edit User')
+
+        # permet de rajouter les layouts dans le principale
         outerLayout.addLayout(Layout)
-        outerLayout.addLayout(ValidationLayout)
-        # Set the window's main layout
+        outerLayout.addLayout(ButtonLayout)
+
         self.setLayout(outerLayout)
+        self.show()
 
     def editUser(self):
         # Show subscription formular
-        data = {'firstname': self.first_name.text(), 'lastname': self.last_name.text(), 'email': self.email.text(), 'type': 'customer'}
-        self._member_controller.update_member(self.user_id, data)
-        if self.show_vue is not None:
-            self.show_vue.refresh()
+        data = {'firstname': self.first_name.text(), 'lastname': self.last_name.text(), 'type': 'user'}
+        self._member_controller.update_member(self.user, data)
         self.close()
 
-    def fillform(self):
-        user = self._member_controller.get_member(self.user_id)
-        self.first_name.setText(user['firstname'])
-        self.last_name.setText(user['lastname'])
-        self.email.setText(user['email'])
+    def get_user_name(self, user):
+        user = self._admin_controller.get_user(user.id)
+        self.first_name.setText(user.firstname)
+        self.last_name.setText(user.lastname)
