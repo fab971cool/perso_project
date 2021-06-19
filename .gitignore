@@ -1,1 +1,4 @@
 /pathesiea.db
+/venv/
+.idea/
+__pycache__/
